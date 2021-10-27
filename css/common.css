@@ -1,0 +1,104 @@
+body {
+  overflow: hidden;
+}
+
+.main-view {
+  position: relative;
+  padding-left: 12%;
+  padding-right: 12%;
+  width: 100%;
+  height: 100%;
+}
+
+.main-view .side-bar {
+  position: fixed;
+  width: 300px;
+  height: 100%;
+  background-color: #fbfbfb;
+}
+
+.main-view .profile {
+  border-bottom: 2px solid #d4d4d4;
+  padding-bottom: 30px;
+  margin: 0 auto;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.main-view .profile-photo {
+  width: 150px;
+  height: 150px;
+  background-image: url("../images/profile-photo.jpg");
+  background-size: 150px 150px;
+  margin: 0 auto;
+  border-radius: 100%;
+}
+
+.main-view .profile-name {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.main-view .profile-info {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.main-view .section-navigation {
+  margin-top: 40px;
+  text-align: center;
+  line-height: 40px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.main-view .section-navigation ul {
+  list-style: none;
+}
+
+.main-view .section-navigation ul li :hover {
+  color: #00adff;
+}
+
+.main-view .section-navigation ul a {
+  text-decoration: none;
+  color: #464646;
+}
+
+.main-view .search-bar {
+  position: relative;
+  margin-top: 30px;
+  margin-left: 20%;
+  width: 60%;
+  height: 30px;
+}
+
+.main-view .search-bar::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  background-image: url("../images/search-icon.png");
+  background-size: 24px 24px;
+  background-repeat: no-repeat;
+}
+
+.main-view .search-bar input {
+  height: 100%;
+  width: 100%;
+  border: 1px solid #d4d4d4;
+  padding-left: 32px;
+  border-radius: 5px;
+}
+
+.main-view .artical-view {
+  position: relative;
+  left: 300px;
+  width: calc(100% - 300px);
+  height: 100%;
+  background-color: #ffffff;
+}

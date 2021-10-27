@@ -1,0 +1,31 @@
+/* 去除margin padding border */
+blockquote, body, button, dd, dl, dt, fieldset, form,
+h1, h2, h3, h4, h5, h6, hr, input, legend, li, ol, p, pre, td,
+textarea, th, ul {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* 设置字体 */
+body {
+  font-size: medium;
+  font-family: "Microsoft Yahei", Arial, Helvetica, sans-serif;
+  color: #000;
+}
+
+/* 去除列表默认样式 */
+ul, ol {
+  list-style: none;
+}
+
+/* 去除a标签下划线 */
+a {
+  text-decoration: none;
+}
+
+/* 去除input默认样式 */
+input {
+  border: none;
+  outline: none;
+}
