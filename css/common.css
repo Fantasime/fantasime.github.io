@@ -1,12 +1,9 @@
-body {
-  overflow: hidden;
-}
+.main-view-background {}
 
 .main-view {
   position: relative;
-  padding-left: 12%;
-  padding-right: 12%;
-  width: 100%;
+  margin: 0 auto;
+  width: 76%;
   height: 100%;
 }
 
@@ -96,9 +93,6 @@ body {
 }
 
 .main-view .artical-view {
-  position: relative;
-  left: 300px;
-  width: calc(100% - 300px);
-  height: 100%;
-  background-color: #ffffff;
+  overflow-y: auto;
+  padding-left: 300px;
 }
