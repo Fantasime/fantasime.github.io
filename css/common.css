@@ -1,16 +1,22 @@
 .main-view-background {}
 
 .main-view {
+  overflow: hidden;
   position: relative;
   margin: 0 auto;
   width: 76%;
-  height: 100%;
+  height: 100vh;
 }
 
 .main-view .side-bar {
   position: fixed;
-  width: 300px;
+  overflow: auto;
+  box-sizing: border-box;
+  /* width: 300px; */
+  width: 19%;
   height: 100%;
+  /* border-left: 2px solid #d4d4d4; */
+  border-right: 2px solid #d4d4d4;
   background-color: #fbfbfb;
 }
 
@@ -94,5 +100,26 @@
 
 .main-view .artical-view {
   overflow-y: auto;
-  padding-left: 300px;
+  height: 100%;
+  /* padding-left: 300px; */
+  padding-left: 26%;
+}
+
+.main-view .artical-view::-webkit-scrollbar {
+  width: 10px;
+  height: 1px;
+}
+
+.main-view .artical-view::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  box-shadow: none;
+  background: #d4d4d4;
+}
+
+.main-view .artical-view::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  box-shadow: none;
+  border-radius: 10px;
+  background: #EDEDED;
 }
