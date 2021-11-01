@@ -1,4 +1,6 @@
-.main-view-background {}
+.main-view-background {
+  background-image: none;
+}
 
 .main-view {
   overflow: hidden;
