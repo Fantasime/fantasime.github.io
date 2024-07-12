@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediaRecorder Demo</title>
+</head>
+<body>
+    <h1>MediaRecorder 录像示例</h1>
+    <video id="video" width="640" height="480" autoplay></video>
+    <br>
+    <label for="formatSelect">选择视频格式:</label>
+    <select id="formatSelect">
+        <option value="video/webm">WebM</option>
+        <option value="video/mp4">MP4</option>
+        <option value="video/ogg">Ogg</option>
+    </select>
+    <br>
+    <button id="startBtn">开始录像</button>
+    <button id="stopBtn" disabled>停止录像</button>
+    <br>
+    <a id="downloadLink" style="display: none;">下载录像</a>
+
+    <script>
+        const video = document.getElementById('video');
+        const formatSelect = document.getElementById('formatSelect');
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const downloadLink = document.getElementById('downloadLink');
+
+        let mediaRecorder;
+        let recordedChunks = [];
+
+        // 获取用户媒体（摄像头）
+        async function init() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                video.srcObject = stream;
+
+                startBtn.addEventListener('click', () => {
+                    const mimeType = formatSelect.value;
+                    if (!MediaRecorder.isTypeSupported(mimeType)) {
+                        alert(`MIME类型 ${mimeType} 不受支持`);
+                        return;
+                    }
+
+                    recordedChunks = [];
+                    mediaRecorder = new MediaRecorder(stream, { mimeType });
+
+                    mediaRecorder.ondataavailable = function(event) {
+                        if (event.data.size > 0) {
+                            recordedChunks.push(event.data);
+                        }
+                    };
+
+                    mediaRecorder.onstop = function() {
+                        const blob = new Blob(recordedChunks, { type: mimeType });
+                        const url = URL.createObjectURL(blob);
+                        downloadLink.href = url;
+                        downloadLink.download = `recording.${mimeType.split('/')[1]}`;
+                        downloadLink.style.display = 'block';
+                    };
+
+                    mediaRecorder.start();
+                    startBtn.disabled = true;
+                    stopBtn.disabled = false;
+                });
+
+                stopBtn.addEventListener('click', () => {
+                    mediaRecorder.stop();
+                    startBtn.disabled = false;
+                    stopBtn.disabled = true;
+                });
+            } catch (err) {
+                console.error('Error accessing media devices.', err);
+            }
+        }
+
+        // 初始化
+        init();
+    </script>
+</body>
+</html>
