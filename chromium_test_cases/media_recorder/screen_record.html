@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Screen Recording with Format Selection</title>
+  <style>
+    .LiveIntention1v1 {
+      color: black;
+    }
+  </style>
+</head>
+<body>
+  <div class="LiveIntention1v1">
+    <video id="video" autoplay muted playsinline webkit-playsinline="true" style="width: 50%; object-fit: cover;"></video>
+    <select id="formatSelect">
+      <option value="video/webm; codecs=vp9">video/webm; codecs=vp9</option>
+      <option value="video/webm; codecs=vp8">video/webm; codecs=vp8</option>
+      <option value="video/webm; codecs=av1">video/webm; codecs=av1</option>
+      <option value="video/mp4; codecs=vp9">video/mp4; codecs=vp9</option>
+      <option value="video/mp4; codecs=avc1">video/mp4; codecs=avc1</option>
+      <option value="video/mp4; codecs=av01">video/mp4; codecs=av01</option>
+      <option value="video/mp4">video/mp4</option>
+      <option value="">none</option>
+    </select>
+    <button id="startRecordBtn">开始录制</button>
+    <button id="stopRecordBtn">结束录制</button>
+    <button id="reloadBtn">页面刷新</button>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const video = document.getElementById('video');
+      const formatSelect = document.getElementById('formatSelect');
+      const startRecordBtn = document.getElementById('startRecordBtn');
+      const stopRecordBtn = document.getElementById('stopRecordBtn');
+      const reloadBtn = document.getElementById('reloadBtn');
+
+      let mediaRecorder = null;
+      let recordedChunks = [];
+
+      async function startScreenCapture() {
+        try {
+          const stream = await navigator.mediaDevices.getDisplayMedia({
+            video: { cursor: "always" },
+            audio: false
+          });
+          handleStream(stream);
+        } catch (err) {
+          console.error("Error: " + err);
+        }
+      }
+
+      function handleStream(stream) {
+        video.srcObject = stream;
+        video.play();
+
+        const selectedFormat = formatSelect.value;
+        if (selectedFormat.length)
+          mediaRecorder = new MediaRecorder(stream);
+        else
+          mediaRecorder = new MediaRecorder(stream, {
+            mimeType: selectedFormat
+          });
+
+        mediaRecorder.ondataavailable = function(event) {
+          if (event.data.size > 0) {
+            recordedChunks.push(event.data);
+          }
+        };
+
+        mediaRecorder.onstop = function() {
+          const blob = new Blob(recordedChunks, {
+            type: mediaRecorder.mimeType
+          });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          document.body.appendChild(a);
+          a.style = 'display: none';
+          a.href = url;
+          console.log(a.href);
+          a.download = `screen-recording.${selectedFormat.split('/')[1].split(';')[0]}`;
+          a.click();
+          window.URL.revokeObjectURL(url);
+        };
+      }
+
+      function startRecord() {
+        recordedChunks = [];
+        mediaRecorder.start();
+        console.log("Recording started");
+        console.log("mimetype: " + mediaRecorder.mimeType);
+      }
+
+      function stopRecord() {
+        mediaRecorder.stop();
+        console.log("Recording stopped");
+      }
+
+      startRecordBtn.addEventListener('click', function() {
+        if (!mediaRecorder) {
+          startScreenCapture().then(startRecord);
+          alert('ok');
+        } else {
+            alert('No media recorder');
+        }
+      });
+
+      stopRecordBtn.addEventListener('click', stopRecord);
+
+      reloadBtn.addEventListener('click', function() {
+        location.reload();
+      });
+
+      window.addEventListener('beforeunload', function() {
+        if (video.srcObject) {
+          const tracks = video.srcObject.getTracks();
+          tracks.forEach(track => track.stop());
+        }
+      });
+    });
+  </script>
+</body>
+</html>
