@@ -94,6 +94,7 @@
 
           consoleView.append(JSON.stringify(mediaOptions) + '\n');
           mediaRecorder = new MediaRecorder(new MediaStream([localStream.getVideoTracks()[0]]), mediaOptions);
+          consoleView.append("actual mimetype: " + mediaOptions.mimeType + '\n');
           handleMediaRecorder(mediaRecorder, 'videoChunk');
         } catch (error) {
           consoleView.append('startRecord error' + JSON.stringify(error.message) + '\n');
