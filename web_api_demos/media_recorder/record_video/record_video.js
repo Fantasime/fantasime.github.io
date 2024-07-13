@@ -109,26 +109,12 @@ function alertUnsupportedMimeType(mimeType) {
 async function startRecording() {
   recordedBlobs = [];
   const mimeType = recordingFormat.options[recordingFormat.selectedIndex].value;
-
-  console.log(mimeType);
-
   if (!MediaRecorder.isTypeSupported(mimeType)) {
     alertUnsupportedMimeType(mimeType);
     return;
   }
   
   const options = {mimeType};
-  if (mimeType.split(';', 1)[0] === 'video/mp4') {
-    // Adjust sampling rate to 48khz.
-    const track = window.stream.getAudioTracks()[0];
-    const {sampleRate} = track.getSettings();
-    if (sampleRate != 48000) {
-      track.stop();
-      window.stream.removeTrack(track);
-      const newStream = await navigator.mediaDevices.getUserMedia({audio: {sampleRate: 48000}});
-      window.stream.addTrack(newStream.getTracks()[0]);
-    }
-  }
   try {
     mediaRecorder = new MediaRecorder(window.stream, options);
   } catch (e) {
