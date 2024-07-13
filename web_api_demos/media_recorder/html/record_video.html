@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="description" content="WebRTC code samples">
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
+    <meta itemprop="description" content="Client-side WebRTC code samples">
+    <meta itemprop="image" content="../../../images/webrtc-icon-192x192.png">
+    <meta itemprop="name" content="WebRTC code samples">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta id="theme-color" name="theme-color" content="#ffffff">
+
+    <base target="_blank">
+
+    <title>MediaRecorder: record video</title>
+
+    <link rel="stylesheet" href="../css/record_video.css">
+
+</head>
+
+<body>
+
+<div id="container">
+    <video id="gum" playsinline autoplay muted></video>
+    <video id="recorded" playsinline loop></video>
+
+    <div>
+        <button id="startCamera">启用摄像头</button>
+        <button id="startRecording" disabled>开始录制</button>
+        <button id="play" disabled>播放</button>
+        <button id="download" disabled>下载</button>
+    </div>
+
+    <div>
+        录制格式: <select id="recordingFormat" disabled></select>
+        播放/下载格式: <select id="targetFormat" disabled></select>
+    </div>
+
+    <div>
+        <span id="errorMsg"></span>
+    </div>
+
+</div>
+
+<script src="../js/record_video.js" async></script>
+
+</body>
+</html>
