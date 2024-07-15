@@ -37,8 +37,6 @@ playButton.addEventListener('click', () => {
   const videoType = getSelectedTargetVideoType();
   const superBuffer = new Blob(recordedBlobs, {type: videoType});
   console.log('Playing blob: ', superBuffer);
-  recordedVideo.src = null;
-  recordedVideo.srcObject = null;
   recordedVideo.src = window.URL.createObjectURL(superBuffer);
   recordedVideo.controls = true;
   recordedVideo.play();
@@ -67,22 +65,6 @@ function handleDataAvailable(event) {
   if (event.data && event.data.size > 0) {
     recordedBlobs.push(event.data);
   }
-}
-
-function getSupportedMimeTypes() {
-  const possibleTypes = [
-    'video/webm;codecs=vp9,opus',
-    'video/webm;codecs=vp8,opus',
-    'video/webm;codecs=h264,opus',
-    'video/webm;codecs=av01,opus',
-    'video/mp4;codecs=h264,aac',
-    'video/mp4;codecs=avc1,mp4a.40.2',
-    'video/mp4',
-    ''
-  ];
-  return possibleTypes.filter(mimeType => {
-    return MediaRecorder.isTypeSupported(mimeType);
-  });
 }
 
 function getOptionalMimeTypes() {
