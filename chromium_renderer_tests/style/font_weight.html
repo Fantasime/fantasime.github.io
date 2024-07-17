@@ -1,34 +1,57 @@
-<p>
-    当前使用的字体：
-    <span id="whatMyFont">stub</span>
-</p>
-
-
-<p style="font-weight: 100;">Hello World | font-weight: 100</p>
-<p style="font-weight: lighter;">Hello World | font-weight: lighter</p>
-<p style="font-weight: 200;">Hello World | font-weight: 200</p>
-<p style="font-weight: 300;">Hello World | font-weight: 300</p>
-<p style="font-weight: 400;">Hello World | font-weight: 400</p>
-<p style="font-weight: normal;">Hello World | font-weight: normal</p>
-<p>Hello World | normal</p>
-<p style="font-weight: 500;">Hello World | font-weight: 500</p>
-<p style="font-weight: 600;">Hello World | font-weight: 600</p>
-<p style="font-weight: 700;">Hello World | font-weight: 700</p>
-<p style="font-weight: 800;">Hello World | font-weight: 800</p>
-<p style="font-weight: bold;">Hello World | font-weight: bold</p>
-<p style="font-weight: bolder;">Hello World | font-weight: bolder</p>
-<p><strong>Hello World | strong label</strong></p>
-<p style="font-weight: 900;">Hello World | font-weight: 900</p>
+<div id="styleView">
+    <p id="whatMyFont">当前使用的字体</p>
+    <p style="font-weight: 100;">Hello World | font-weight: 100</p>
+    <p style="font-weight: lighter;">Hello World | font-weight: lighter</p>
+    <p style="font-weight: 200;">Hello World | font-weight: 200</p>
+    <p style="font-weight: 300;">Hello World | font-weight: 300</p>
+    <p style="font-weight: 400;">Hello World | font-weight: 400</p>
+    <p style="font-weight: normal;">Hello World | font-weight: normal</p>
+    <p>Hello World | normal</p>
+    <p style="font-weight: 500;">Hello World | font-weight: 500</p>
+    <p style="font-weight: 600;">Hello World | font-weight: 600</p>
+    <p style="font-weight: 700;">Hello World | font-weight: 700</p>
+    <p style="font-weight: 800;">Hello World | font-weight: 800</p>
+    <p style="font-weight: bold;">Hello World | font-weight: bold</p>
+    <p style="font-weight: bolder;">Hello World | font-weight: bolder</p>
+    <p><strong>Hello World | strong label</strong></p>
+    <p style="font-weight: 900;">Hello World | font-weight: 900</p>
+</div>
+    <label for="fontSelect">选择字体:</label>
+    <select id="fontSelect">
+        <option value=''>默认</option>
+        <option value="Arial">Arial</option>
+        <option value="Courier New">Courier New</option>
+        <option value="Georgia">Georgia</option>
+        <option value="sans-serif">sans-serif</option>
+        <option value="Times New Roman">Times New Roman</option>
+        <option value="Verdana">Verdana</option>
+    </select>
+<div>
+</div>
 
 <script>
-    window.onload = () => {
-        const currentFont = getCurrentFont();
-        const fontTestArea = document.querySelector('#whatMyFont');
-        fontTestArea.textContent = currentFont;
-    }
-    
+    const fontTestArea = document.querySelector('#whatMyFont');
+    const elementsInStyleView = document.querySelectorAll('#styleView>p')
+    const fontSelect = document.querySelector('#fontSelect');
+
+
+    window.onload = updateWhatsMyFont;
+
     function getCurrentFont() {
-        const fontTestArea = document.querySelector('#whatMyFont');
         return getComputedStyle(fontTestArea).getPropertyValue('font-family');
     }
+
+    function updateWhatsMyFont(font = '') {
+        elementsInStyleView.forEach(p => {
+            p.style['font-family'] = font;
+        });
+        const currentFont = getCurrentFont();
+        fontTestArea.textContent = '当前使用的字体: ' + currentFont;
+    }
+
+    fontSelect.addEventListener('change', () => {
+        const selectedFont = fontSelect.value;
+        console.log(selectedFont);
+        updateWhatsMyFont(selectedFont);
+    });
 </script>
