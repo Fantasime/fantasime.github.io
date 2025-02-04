@@ -60,14 +60,13 @@ jobs:
             --gc \
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
+      - name: Setup web utilities
+        run: |
+          cp -r ./web_utilities/* ./public
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./public
-      - name: Upload web utilities
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./web_utilities
 
   # Deployment job
   deploy:
