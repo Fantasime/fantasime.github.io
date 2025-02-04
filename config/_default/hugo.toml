@@ -1,0 +1,9 @@
+baseURL = 'https://fantasime.github.io'
+title = "Fantasime's Blog"
+theme = 'stack'
+
+defaultContentLanguage = 'zh-cn'
+hasCJKLanguage = true
+
+[pagination]
+pagerSize = 10
