@@ -39,21 +39,27 @@ type = "archives"
 
 [widgets.homepage.params]
 limit = 5
+iconVisible = false
 
 [[widgets.homepage]]
 type = "categories"
 
 [widgets.homepage.params]
 limit = 10
+iconVisible = false
 
 [[widgets.homepage]]
 type = "tag-cloud"
 
 [widgets.homepage.params]
 limit = 10
+iconVisible = false
 
 [[widgets.page]]
 type = "toc"
+
+[widgets.page.params]
+iconVisible = false
 
 [opengraph.twitter]
 site = ""
