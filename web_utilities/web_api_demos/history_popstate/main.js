@@ -9,17 +9,20 @@ function pushHistory() {
 function listenNavBack(callback) {
   pushHistory();
 
-  var bool = false;
-  setTimeout(function() {
-    bool = true;
-  }, 1500);
+  // var bool = false;
+  // setTimeout(function() {
+  //   bool = true;
+  // }, 1500);
+
+  var hasUserInteraction = false;
 
   window.addEventListener(
     'popstate',
     function(e) {
-      if (bool) {
+      // alert('QAQ');
+      // if (bool) {
         callback(e);
-      }
+      // }
       pushHistory();
     },
     false
